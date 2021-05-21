@@ -78,6 +78,9 @@ class Api:
         r = self.session.post(url=self.base_url, data=data)
         r.raise_for_status()  # Raise exception if status code indicates error
         json = r.json()
+        if "error" in json and json["error"]["code"] == "badtoken":
+            self.edit_token = self._get_token("csrf")
+            return self.post(body)
         self._check_err(json)
         return json
 
