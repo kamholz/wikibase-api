@@ -56,6 +56,7 @@ class Api:
         """
         r = self.session.get(url=self.base_url, params=params)
         r.raise_for_status()  # Raise exception if status code indicates error
+        print(r.text)
         json = r.json()
         self._check_err(json)
         return json
